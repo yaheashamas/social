@@ -1,9 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social/core/components/components.dart';
+import 'package:social/layout/Home_page.dart';
+import 'package:social/modules/login/login_screen.dart';
 import 'package:social/modules/register/cubit/register_cubit.dart';
 
+// ignore: must_be_immutable
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
 
@@ -20,6 +22,23 @@ class RegisterScreen extends StatelessWidget {
       create: (context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
+          if (state is RegisterCreateUserSuccessState) {
+            navigateTo(context: context, Widget: LoginScreen());
+            defaultToast(
+              message: "add user successfully",
+              colorsToaster: colorsToast.SUCCESS,
+            );
+          } else if (state is RegisterErrorState) {
+            defaultToast(
+              message: state.error.toString(),
+              colorsToaster: colorsToast.ERROR,
+            );
+          } else if (state is RegisterCreateUserErrorState) {
+             defaultToast(
+              message: state.error.toString(),
+              colorsToaster: colorsToast.ERROR,
+            );
+          }
           // if (state is RegisterSuccessState) {
           //   if (state.loginModel.status) {
           //     defaultToast(
@@ -47,6 +66,7 @@ class RegisterScreen extends StatelessWidget {
           // } else if (state is CreateUserSuccessState) {
           //   defaultToast(
           //     message: "Add Success",
+
           //     colorsToaster: colorsToast.SUCCESS,
           //   );
           //   navigateToRemove(context: context, Widget: HomePage());

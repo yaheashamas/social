@@ -18,4 +18,11 @@ class RegisterErrorState extends RegisterState {
   RegisterErrorState({this.error});
 }
 
+class RegisterCreateUserSuccessState extends RegisterState {}
+
+class RegisterCreateUserErrorState extends RegisterState {
+  final String? error;
+  RegisterCreateUserErrorState({this.error});
+}
+
 class RegisterSecureInputState extends RegisterState {}

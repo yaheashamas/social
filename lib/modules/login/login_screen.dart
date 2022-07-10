@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social/core/components/components.dart';
+import 'package:social/core/network/local/cashe_helper.dart';
+import 'package:social/layout/Home_page.dart';
 import 'package:social/modules/login/cubit/login_cubit.dart';
 import 'package:social/modules/register/register_screen.dart';
 
@@ -16,10 +18,17 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
-            // defaultToast(
-            //   message: state.loginModel.message,
-            //   colorsToaster: colorsToast.SUCCESS,
-            // );
+            defaultToast(
+              message: "login successfully",
+              colorsToaster: colorsToast.SUCCESS,
+            );
+            print("state.uId =>>>>>>>> ${state.uId}");
+            CacheHelper.setData(key: "uId", value: state.uId).then((value) {
+              navigateToRemove(
+                context: context,
+                Widget: HomePage(),
+              );
+            });
           }
           if (state is LoginErrorState) {
             defaultToast(
@@ -95,6 +104,19 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(
                           height: 15.0,
                         ),
+                        state is LoginLoadingState
+                            ? const Center(child: CircularProgressIndicator())
+                            : defaultButton(
+                                text: "Login",
+                                function: () async {
+                                  if (formKey.currentState!.validate()) {
+                                    LoginCubit.get(context).userLogin(
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    );
+                                  }
+                                },
+                              ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

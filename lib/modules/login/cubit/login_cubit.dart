@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,27 +15,22 @@ class LoginCubit extends Cubit<LoginState> {
   bool isSecure = true;
   IconData iconSuffix = Icons.remove_red_eye;
 
-  // //function
-  // void userLogin({
-  //   required String email,
-  //   required String password,
-  // }) {
-  //   emit(LoginLoadingState());
+  //function
+  void userLogin({
+    required String email,
+    required String password,
+  }) {
+    emit(LoginLoadingState());
 
-  //   DioHelper.postData(
-  //     url: LOGIN,
-  //     data: {
-  //       "email": email,
-  //       "password": password,
-  //     },
-  //   ).then((value) {
-  //     loginModel = LoginModel.fromJson(value.data);
-  //     emit(LoginSuccessState(loginModel));
-  //   }).catchError((error) {
-  //     print(error);
-  //     emit(LoginErrorState(error: error));
-  //   });
-  // }
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((value) {
+      print(value);
+      emit(LoginSuccessState(uId: value.user!.uid));
+    }).catchError((error) {
+      emit(LoginErrorState(error: error.toString()));
+    });
+  }
 
   void changeStateSecure() {
     isSecure = !isSecure;

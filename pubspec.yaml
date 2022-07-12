@@ -21,7 +21,7 @@ dependencies:
   fluttertoast: ^8.0.9
   carousel_slider: ^4.0.0
   extended_image: ^3.0.0-non-null-safety
-  equatable: ^2.0.3
+  conditional_builder_null_safety: ^0.0.6
   #firebase
   firebase_core: ^1.19.1
   firebase_auth: ^3.4.1
@@ -32,8 +32,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: NSWAC     
+      fonts:
+        - asset: asset/fonts/EduNSWACTFoundation-Regular.ttf
+        - asset: asset/fonts/EduNSWACTFoundation-Bold.ttf
+    - family: IconBroken
+      fonts:
+        - asset: asset/icons/icons.ttf

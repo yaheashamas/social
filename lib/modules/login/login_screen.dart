@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social/core/components/components.dart';
+import 'package:social/core/components/constants.dart';
 import 'package:social/core/network/local/cashe_helper.dart';
 import 'package:social/layout/Home_page.dart';
 import 'package:social/modules/login/cubit/login_cubit.dart';
@@ -22,7 +23,7 @@ class LoginScreen extends StatelessWidget {
               message: "login successfully",
               colorsToaster: colorsToast.SUCCESS,
             );
-            print("state.uId =>>>>>>>> ${state.uId}");
+            uId = state.uId;
             CacheHelper.setData(key: "uId", value: state.uId).then((value) {
               navigateToRemove(
                 context: context,

@@ -1,7 +1,6 @@
-import 'package:equatable/equatable.dart';
 import 'package:social/core/messages/fialur_messages.dart';
 
-abstract class Failure extends Equatable {}
+abstract class Failure {}
 
 class OffLineFialur extends Failure {
   @override
@@ -18,15 +17,15 @@ class EmptyCacheFialur extends Failure {
   List<Object?> get props => [];
 }
 
- String mapFialurToMessage({required Failure fialur}) {
-    switch (fialur.runtimeType) {
-      case ServerFialur:
-        return fialurServerMessage;
-      case OffLineFialur:
-        return fialurOffLineMessage;
-      case EmptyCacheFialur:
-        return fialurEmptyMessage;
-      default:
-        return "unexpected errpr, please try again later ...";
-    }
+String mapFialurToMessage({required Failure fialur}) {
+  switch (fialur.runtimeType) {
+    case ServerFialur:
+      return fialurServerMessage;
+    case OffLineFialur:
+      return fialurOffLineMessage;
+    case EmptyCacheFialur:
+      return fialurEmptyMessage;
+    default:
+      return "unexpected errpr, please try again later ...";
   }
+}

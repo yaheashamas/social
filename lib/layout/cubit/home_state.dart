@@ -1,9 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-abstract class HomeState extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
+abstract class HomeState {}
 
 class InitialState extends HomeState {}
 
@@ -15,3 +10,6 @@ class GetUserErrorState extends HomeState {
   final String error;
   GetUserErrorState({required this.error});
 }
+
+class ChangeButtonNavState extends HomeState {}
+class MoveToAddNewPostState extends HomeState {}

@@ -21,10 +21,9 @@ void main() async {
   //initial shared Preferences
   await CacheHelper.init();
   Widget widget;
+  // CacheHelper.removeData(key: "uId");
   uId = CacheHelper.getString(key: "uId");
-  uId != null
-      ? widget = HomePage()
-      : widget = LoginScreen();
+  uId != null ? widget = HomePage() : widget = LoginScreen();
   runApp(MyApp(widget: widget));
 }
 
@@ -42,7 +41,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: themeLight,
-      darkTheme: themeLight,
+      // darkTheme: themeLight,
       home: Scaffold(
         body: widget,
       ),
